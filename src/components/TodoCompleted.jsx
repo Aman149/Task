@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import './TodoCompleted.css'
 import deleteIcon from '../assets/delete.svg'
 
 function Login() {
