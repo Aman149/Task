@@ -1,0 +1,106 @@
+* {
+    background: #17171A;
+    color: aliceblue;
+}
+
+.nav {
+  text-align: right;
+  padding: 10px;
+}
+
+.arrow-right {
+  border: solid #752ECF;
+  border-width: 0 5px 5px 0;
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.todo-heading {
+    margin: 10px;
+    padding: 10px;
+    font-size: 30px;
+    text-align: start;
+}
+
+.todo-completed {
+    background: #17E0BC;
+    text-align: left;
+    padding-left: 30px;
+    min-width: 300px;
+    max-width: 400px;
+    height: 55px;
+    font-size: 20px;
+    border: none;
+    border-radius: 15px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  min-width: 280px;
+  max-width: 380px;
+  height: 45px;
+  background-color: #232328;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.todo-item-completed {
+  display: flex;
+  align-items: center;
+  min-width: 280px;
+  max-width: 380px;
+  height: 45px;
+  background-color: #232328;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.todo-item input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #44444C;
+  margin-right: 10px;
+}
+
+.todo-item input[type="radio"]:checked {
+  background-color: #ffffff;
+}
+
+.todo-item label {
+  font-size: 17px;
+  color: #ffffff;
+  background-color: #232328;
+}
+
+.delete-icon {
+  margin-left: auto;
+  cursor: pointer;
+  color: red;
+  padding-right: 10px;
+  background-color: #232328;
+}
+
+img {
+    background-color: #232328;
+    height: 21px;
+    width: 21px;
+}
+
+
