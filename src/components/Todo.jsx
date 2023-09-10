@@ -1,7 +1,7 @@
 import deleteIcon from '../assets/delete.svg'
 import './Todo.css'
 
-function Login() {
+function Todo() {
   // Function to handle the click on a todo item
   const handleTodoItemClick = () => {
     // Add your logic for opening a new page here
@@ -47,4 +47,4 @@ function Login() {
   )
 }
 
-export default Login;
+export default Todo;

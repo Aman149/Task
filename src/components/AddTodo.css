@@ -1,0 +1,34 @@
+/* AddTodo component specific CSS styles */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the form content horizontally */
+    text-align: center; /* Center text content within the form */
+}
+
+input[type="text"] {
+    border: none;
+    border-bottom: 1px solid #17E0BC; /* Add an underline instead of a box */
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: transparent;
+    color: #17171A;
+    font-size: 16px;
+    outline: none; /* Remove the default input focus outline */
+}
+
+input[type="text"]::placeholder {
+    color: #999; /* Placeholder text color */
+}
+
+button.add-task-button {
+    background: #17E0BC;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    width: 180px;
+    height: 50px;
+    cursor: pointer;
+}
