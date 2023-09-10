@@ -75,6 +75,7 @@
 
 .delete-icon img {
     cursor: pointer; /* Add this to make the delete icon clickable */
+    padding: 0px 15px;
 }
 
 /* Prevent clicking on the delete icon from triggering the todo item click */
