@@ -8,8 +8,11 @@ function Forgot() {
         <form className='form'>
             <span className='message'>Enter your email</span>
             <input className='input' type="text" placeholder='Enter your email'/>
-            <span className='forgot-password'>Forgot your password?</span>
             <button className='button'>Reset</button>
+            <span className='redir-user'>
+              <p>Already have an accout?</p>
+              <p>Create a new user?</p>
+            </span>
         </form>
     </div>
   )

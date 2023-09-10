@@ -11,7 +11,7 @@ function Login() {
             <input className='input' type="text" placeholder='Enter your password'/>
             <span className='forgot-password'>Forgot your password?</span>
             <button className='button'>Log in</button>
-            <span className='new-user'>Create a new user?</span>
+            <span className='redir-user'>Create a new user?</span>
         </form>
     </div>
   )

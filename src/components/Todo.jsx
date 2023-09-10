@@ -1,52 +1,48 @@
-import { useState, useEffect } from 'react'
 import deleteIcon from '../assets/delete.svg'
+import './Todo.css'
 
 function Login() {
+  // Function to handle the click on a todo item
+  const handleTodoItemClick = () => {
+    // Add your logic for opening a new page here
+    console.log('Opening a new page...');
+  };
+
   return (
     <div className='todo'>
-        <h1 className='todo-heading'>Daily Tasks</h1>
-        <button className='todo-completed'>✅ Completed</button>
-        <br />
-        <br />
-        <h2 className='todo-heading'>To do Tasks</h2>
+      <h1 className='todo-heading'>Daily Tasks</h1>
+      <button className='todo-completed'>✅ Completed</button>
+      <h2 className='todo-list-heading'>To do Tasks</h2>
 
-        <div class="todo-list">
-          <div class="todo-item">
-            <input type="radio" id="todo-1" name="todos" checked />
-            <label for="todo-1">Todo item 1</label>
-            <span class="delete-icon">
+      <div className="todo-list">
+        <div className="todo-item" onClick={handleTodoItemClick}>
+          <div className="todo-content">
+            <label>Todo item 1</label>
+            <span className="delete-icon" onClick={(e) => e.stopPropagation()}>
               <img src={deleteIcon} alt="Delete" />
             </span>
           </div>
-          <div class="todo-item">
-            <input type="radio" id="todo-2" name="todos" />
-            <label for="todo-2">Todo item 2</label>
-            <span class="delete-icon">
+        </div>
+        <div className="todo-item" onClick={handleTodoItemClick}>
+          <div className="todo-content">
+            <label>Todo item second</label>
+            <span className="delete-icon" onClick={(e) => e.stopPropagation()}>
               <img src={deleteIcon} alt="Delete" />
             </span>
           </div>
-          <div class="todo-item">
-            <input type="radio" id="todo-2" name="todos" />
-            <label for="todo-2">Todo item 2</label>
-            <span class="delete-icon">
+        </div>
+        <div className="todo-item" onClick={handleTodoItemClick}>
+          <div className="todo-content">
+            <label>This is the third item of todo list</label>
+            <span className="delete-icon" onClick={(e) => e.stopPropagation()}>
               <img src={deleteIcon} alt="Delete" />
             </span>
           </div>
-          <div class="todo-item">
-            <input type="radio" id="todo-2" name="todos" />
-            <label for="todo-2">Todo item 2</label>
-            <span class="delete-icon">
-              <img src={deleteIcon} alt="Delete" />
-            </span>
-          </div>
-          <div class="todo-item">
-            <input type="radio" id="todo-2" name="todos" />
-            <label for="todo-2">Todo item 2</label>
-            <span class="delete-icon">
-              <img src={deleteIcon} alt="Delete" />
-            </span>
-          </div>
+        </div>
       </div>
+
+      <button className='add-todo-button'>+</button>
+
     </div>
   )
 }
