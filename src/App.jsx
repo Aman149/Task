@@ -5,7 +5,7 @@ import Login from './components/Login.jsx'
 import ForgotPassword from './components/ForgotPassword.jsx'
 import Signup from './components/Signup.jsx'
 import Todo from './components/Todo.jsx'
-import AddTodo from './components/AddTodo.jsx'
+import AddTodo from './components/CreateTodo.jsx'
 import TodoCompleted from './components/TodoCompleted.jsx'
 
 
@@ -23,6 +23,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/todo" element={<Todo />} />
             <Route path="/add-todo" element={<AddTodo />} />
+            <Route path="/todo-completed" element={<TodoCompleted />} />
         </Routes>
       </BrowserRouter>
     </>

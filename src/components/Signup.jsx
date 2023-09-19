@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-function Login() {
+function Signup() {
   return (
     <div className='login'>
         <h2 className='heading'>Task</h2>
@@ -16,4 +16,4 @@ function Login() {
   )
 }
 
-export default Login;
+export default Signup;

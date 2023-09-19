@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AddTodo.css'; // Import your CSS file
 
-function AddTodo({ addTodo }) {
+function EditTodo({ addTodo }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -29,7 +29,7 @@ function AddTodo({ addTodo }) {
 
   return (
     <div className='todo'>
-      <h1 className='todo-heading'>Add new Task</h1>
+      <h1 className='todo-heading'>Update Task</h1>
       <br /><br />
       <form onSubmit={handleSubmit}>
         <input
@@ -51,11 +51,11 @@ function AddTodo({ addTodo }) {
         <br />
         <br />
         <button className='add-task-button' type='submit'>
-          📝 Create tasks
+          📝 Update Tasks
         </button>
       </form>
     </div>
   );
 }
 
-export default AddTodo;
+export default EditTodo;
