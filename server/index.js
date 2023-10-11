@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const adminRoute = require('./routes/admin');
 const userRoute = require('./routes/user');
+const mongoPassword = 'TltKWzTw4yECrW0W';
 
 const app = express();
 
@@ -12,11 +13,11 @@ app.use(cors());
 //To be able to parse post requests
 app.use(express.json());
 
+
 app.use('/admin', adminRoute);
-app.use('/user', userRoute);
+app.use('/users', userRoute);
 
-mongoose.connect('mongodb://localhost:27017courses', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
-
+mongoose.connect('mongodb+srv://admin:TltKWzTw4yECrW0W@cluster0.vhx4odw.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
 
 /*
 app.use(function(req, res, next) {
