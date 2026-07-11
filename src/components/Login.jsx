@@ -49,12 +49,13 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <Link to='/forgot-password' className='forgot-password'>Forgot password?</Link>
         {error && <span className='form-error'>{error}</span>}
         <button className='button' type='submit' disabled={loading}>
           {loading ? 'Logging in…' : 'Log in'}
         </button>
         <span className='redir-user'>
-          <Link to='/signup'>Create a new user?</Link>
+          Don’t have an account? <Link to='/signup'>Sign up</Link>
         </span>
       </form>
     </div>

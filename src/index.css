@@ -1,9 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 :root {
-  font-family: 'Poppins', sans-serif;
-  text-decoration: none;
-  font-weight: 900;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-alt: #f6f6f7;
+  --text: #17171a;
+  --muted: #6b7280;
+  --border: #ebebef;
+  --border-strong: #d9d9de;
+  --accent: #17e0bc;
+  --accent-hover: #14c9a8;
+  --danger: #ef4444;
+  --radius: 10px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
   margin: 0;
   padding: 0;
+  min-height: 100%;
+  background: var(--bg);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: var(--text);
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

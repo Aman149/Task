@@ -1,13 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { User } = require('../db');
-const { authenticateJwt, SECRET } = require('../middleware/auth');
+const { authenticateJwt, signToken } = require('../middleware/auth');
 
 const router = express.Router();
 
-const signToken = (user) =>
-  jwt.sign({ id: user._id.toString(), username: user.username }, SECRET, { expiresIn: '7d' });
+const issueToken = (user) =>
+  signToken({ id: user._id.toString(), username: user.username });
 
 router.post('/signup', async (req, res) => {
   try {
@@ -24,7 +23,7 @@ router.post('/signup', async (req, res) => {
     }
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({ username, password: hash });
-    const token = signToken(user);
+    const token = await issueToken(user);
     res.status(201).json({ message: 'User created successfully', token, username: user.username });
   } catch (err) {
     console.error('signup error', err);
@@ -46,7 +45,7 @@ router.post('/login', async (req, res) => {
     if (!ok) {
       return res.status(401).json({ msg: 'Invalid username or password' });
     }
-    const token = signToken(user);
+    const token = await issueToken(user);
     res.json({ message: 'Logged in successfully', token, username: user.username });
   } catch (err) {
     console.error('login error', err);

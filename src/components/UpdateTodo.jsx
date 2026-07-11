@@ -56,10 +56,9 @@ function UpdateTodo() {
   return (
     <div className='todo'>
       <div className='todo-topbar'>
-        <h1 className='todo-heading'>Update Task</h1>
+        <h1 className='todo-heading'>Edit task</h1>
         <Link to='/todo' className='link-button'>← Back</Link>
       </div>
-      <br />
       {loading ? (
         <p className='empty-state'>Loading…</p>
       ) : (
@@ -71,16 +70,15 @@ function UpdateTodo() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            autoFocus
           />
-          <br />
-          <input
-            type='text'
+          <textarea
             name='todo-description'
-            placeholder='Description'
+            placeholder='Description (optional)'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            rows={6}
           />
-          <br />
           <label className='completed-toggle'>
             <input
               type='checkbox'
@@ -90,9 +88,8 @@ function UpdateTodo() {
             Mark as completed
           </label>
           {error && <div className='form-error'>{error}</div>}
-          <br />
           <button className='add-task-button' type='submit' disabled={saving}>
-            {saving ? 'Saving…' : '📝 Update Task'}
+            {saving ? 'Saving…' : 'Save changes'}
           </button>
         </form>
       )}

@@ -58,7 +58,7 @@ function Signup() {
           {loading ? 'Creating…' : 'Sign Up'}
         </button>
         <span className='redir-user'>
-          <Link to='/login'>Already have an account?</Link>
+          Already have an account? <Link to='/login'>Log in</Link>
         </span>
       </form>
     </div>

@@ -59,7 +59,7 @@ function Todo() {
   return (
     <div className='todo'>
       <div className='todo-topbar'>
-        <h1 className='todo-heading'>Daily Tasks</h1>
+        <h1 className='todo-heading'>Tasks</h1>
         <div className='todo-user'>
           {username && <span className='todo-username'>{username}</span>}
           <button className='link-button' onClick={handleLogout}>Logout</button>
@@ -68,11 +68,11 @@ function Todo() {
 
       <Link to='/todo-completed' className='todo-completed-link'>
         <button className='todo-completed' type='button'>
-          ✅ Completed ({completedCount})
+          Completed · {completedCount}
         </button>
       </Link>
 
-      <h2 className='todo-list-heading'>To do Tasks</h2>
+      <h2 className='todo-list-heading'>To do</h2>
 
       {error && <div className='form-error'>{error}</div>}
 
@@ -83,19 +83,36 @@ function Todo() {
           <p className='empty-state'>No tasks yet. Tap “+” to add one.</p>
         ) : (
           active.map((todo) => (
-            <div key={todo._id} className='todo-item' onClick={() => handleToggle(todo)}>
+            <div
+              key={todo._id}
+              className='todo-item'
+              role='button'
+              tabIndex={0}
+              onClick={() => navigate(`/edit-todo/${todo._id}`)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') navigate(`/edit-todo/${todo._id}`);
+              }}
+            >
               <div className='todo-content'>
-                <label>{todo.title}</label>
-                <span className='todo-actions' onClick={(e) => e.stopPropagation()}>
-                  <Link to={`/edit-todo/${todo._id}`} className='edit-link'>Edit</Link>
-                  <span
-                    className='delete-icon'
-                    role='button'
-                    aria-label='Delete task'
-                    onClick={() => handleDelete(todo._id)}
-                  >
-                    <img src={deleteIcon} alt='Delete' />
-                  </span>
+                <input
+                  type='checkbox'
+                  className='todo-check'
+                  checked={todo.completed}
+                  aria-label={`Mark "${todo.title}" as completed`}
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={() => handleToggle(todo)}
+                />
+                <label onClick={(e) => e.preventDefault()}>{todo.title}</label>
+                <span
+                  className='delete-icon'
+                  role='button'
+                  aria-label='Delete task'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(todo._id);
+                  }}
+                >
+                  <img src={deleteIcon} alt='' />
                 </span>
               </div>
             </div>

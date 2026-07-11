@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import deleteIcon from '../assets/delete.svg';
 import api from '../lib/api';
 import { getApiErrorMessage } from '../lib/auth';
 import './Todo.css';
 
 function TodoCompleted() {
+  const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -64,16 +65,33 @@ function TodoCompleted() {
             <div
               key={todo._id}
               className='todo-item todo-item-done'
-              onClick={() => handleUncomplete(todo)}
+              role='button'
+              tabIndex={0}
+              onClick={() => navigate(`/edit-todo/${todo._id}`)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') navigate(`/edit-todo/${todo._id}`);
+              }}
             >
               <div className='todo-content'>
-                <label>{todo.title}</label>
-                <span className='delete-icon' onClick={(e) => e.stopPropagation()}>
-                  <img
-                    src={deleteIcon}
-                    alt='Delete'
-                    onClick={() => handleDelete(todo._id)}
-                  />
+                <input
+                  type='checkbox'
+                  className='todo-check'
+                  checked
+                  aria-label={`Mark "${todo.title}" as not completed`}
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={() => handleUncomplete(todo)}
+                />
+                <label onClick={(e) => e.preventDefault()}>{todo.title}</label>
+                <span
+                  className='delete-icon'
+                  role='button'
+                  aria-label='Delete task'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(todo._id);
+                  }}
+                >
+                  <img src={deleteIcon} alt='' />
                 </span>
               </div>
             </div>
