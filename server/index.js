@@ -1,38 +1,41 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const adminRoute = require('./routes/admin');
+
 const userRoute = require('./routes/user');
-const mongoPassword = 'TltKWzTw4yECrW0W';
+const todoRoute = require('./routes/todos');
 
 const app = express();
 
-//So that we don't get cors error on frontend
 app.use(cors());
-
-//To be able to parse post requests
 app.use(express.json());
 
+app.get('/api/health', (_req, res) => res.json({ ok: true }));
+app.use('/api/users', userRoute);
+app.use('/api/todos', todoRoute);
 
-app.use('/admin', adminRoute);
-app.use('/users', userRoute);
-
-mongoose.connect('mongodb+srv://admin:TltKWzTw4yECrW0W@cluster0.vhx4odw.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
-
-/*
-app.use(function(req, res, next) {
-    res.header('Content-Type', 'application/json')
-    res.header('Access-Control-Allow-Credentials', true)
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With,Content-Type, Accept'
-    )
-    next();
+app.use((err, _req, res, _next) => {
+  console.error(err);
+  res.status(500).json({ msg: 'Internal server error' });
 });
-*/
 
-app.listen(3000, ()=> {
-    console.log('Listening on porr 3000');
-})
+const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+  console.error('MONGO_URI is not set. Create a server/.env file (see .env.example).');
+  process.exit(1);
+}
+
+mongoose
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log('Connected to MongoDB');
+    app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error('Failed to connect to MongoDB:', err.message);
+    process.exit(1);
+  });
 

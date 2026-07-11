@@ -1,67 +1,63 @@
-const mongoose = require('mongoose');
-const express = require('express')
-const { User, Course, Admin } = require('../db');
+const express = require('express');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { SECRET } = require('../middleware/auth');
-const { authenticateJwt } = require('../middleware/auth');
+const { User } = require('../db');
+const { authenticateJwt, SECRET } = require('../middleware/auth');
 
 const router = express.Router();
 
-router.get('/me', authenticateJwt, async (req, res) => {
-    const user = await User.findOne({ username: req.user.username });
-    if (!user) {
-      return res.status(403).json({
-        msg: 'User does not exist'
-      });
-    }
-    res.json({
-      username: user.username
-    });
-  });
+const signToken = (user) =>
+  jwt.sign({ id: user._id.toString(), username: user.username }, SECRET, { expiresIn: '7d' });
 
 router.post('/signup', async (req, res) => {
-    const { username, password }  =req.body;
-    const isUserAlreadyExists = await User.findOne({ username });
-    if(isUserAlreadyExists) {
-        res.status(403).json({ msg: 'User already exists!'});
-    } else {
-        const obj = {username: username, password: password};
-        const newUser = new User(obj);
-        newUser.save();
-        const token = jwt.sign({ username, role: 'user'}, SECRET, {expiresIn: '1h'});
-        res.status(200).json({message: 'User created successfully', token});
+  try {
+    const { username, password } = req.body || {};
+    if (!username || !password) {
+      return res.status(400).json({ msg: 'Username and password are required' });
     }
+    if (password.length < 6) {
+      return res.status(400).json({ msg: 'Password must be at least 6 characters' });
+    }
+    const existing = await User.findOne({ username });
+    if (existing) {
+      return res.status(409).json({ msg: 'User already exists' });
+    }
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({ username, password: hash });
+    const token = signToken(user);
+    res.status(201).json({ message: 'User created successfully', token, username: user.username });
+  } catch (err) {
+    console.error('signup error', err);
+    res.status(500).json({ msg: 'Internal server error' });
+  }
 });
 
 router.post('/login', async (req, res) => {
-    const {username, password} = req.body;
-    isUserAlreadyExists = await User.findOne({username});
-    if(isUserAlreadyExists){
-        const token = jwt.sign({username, role: 'user'}, SECRET, {expiresIn: '1h'})
-        res.status(200).json( {message: 'User logged in successfully', token} );
-    } else {
-        res.status(200).json( {message: 'Invalid username or password!'} );
+  try {
+    const { username, password } = req.body || {};
+    if (!username || !password) {
+      return res.status(400).json({ msg: 'Username and password are required' });
     }
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ msg: 'Invalid username or password' });
+    }
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) {
+      return res.status(401).json({ msg: 'Invalid username or password' });
+    }
+    const token = signToken(user);
+    res.json({ message: 'Logged in successfully', token, username: user.username });
+  } catch (err) {
+    console.error('login error', err);
+    res.status(500).json({ msg: 'Internal server error' });
+  }
 });
 
-router.post('/courses', authenticateJwt, async (req, res) => {
-    const course = new Course(req.body);
-    await course.save();
-    res.json({ message: 'Course created successfully', courseId: course.id });
+router.get('/me', authenticateJwt, async (req, res) => {
+  const user = await User.findById(req.user.id).select('username');
+  if (!user) return res.status(404).json({ msg: 'User not found' });
+  res.json({ username: user.username });
 });
 
-router.put('/courses/:courseId', authenticateJwt, async (req, res) => {
-    const courseId = req.params.courseId;
-    const course = await Course.findByIdAndUpdate( courseId, req.body, { new: true });
-    if(course)
-        res.json({ message: 'Course updated successfully'});
-    else
-        res.json({ message: 'Course not found'});
-});
-
-router.get('/courses', authenticateJwt, async (req, res) => {
-    const courses = await Course.find({});
-    res.json({ courses });
-});
-
-module.exports = router
+module.exports = router;

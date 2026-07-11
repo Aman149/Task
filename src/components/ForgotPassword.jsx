@@ -1,21 +1,23 @@
-import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
 function Forgot() {
   return (
     <div className='login'>
-        <h2 className='heading'>Task</h2>
-        <h4 className='title'>Forgot Password</h4>
-        <form className='form'>
-            <span className='message'>Enter your email</span>
-            <input className='input' type="text" placeholder='Enter your email'/>
-            <button className='button'>Reset</button>
-            <span className='redir-user'>
-              <p>Already have an accout?</p>
-              <p>Create a new user?</p>
-            </span>
-        </form>
+      <h2 className='heading'>Task</h2>
+      <h4 className='title'>Forgot Password</h4>
+      <div className='form'>
+        <span className='message'>
+          Password reset isn’t implemented yet. Please create a new account.
+        </span>
+        <span className='redir-user'>
+          <Link to='/login'>Back to login</Link>
+          <br />
+          <Link to='/signup'>Create a new user</Link>
+        </span>
+      </div>
     </div>
-  )
+  );
 }
 
 export default Forgot;
+

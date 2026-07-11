@@ -1,36 +1,42 @@
-import React, { useState } from 'react';
-import './AddTodo.css'; // Import your CSS file
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../lib/api';
+import { getApiErrorMessage } from '../lib/auth';
+import './AddTodo.css';
+import './Todo.css';
 
-function CreateTask({ addTodo }) {
+function CreateTodo() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     if (title.trim() === '') {
-      alert('Please enter a title.');
+      setError('Please enter a title.');
       return;
     }
-
-    // Create a new todo object
-    const newTodo = {
-      id: Date.now(), // You can use a better ID generation method
-      title,
-      description,
-    };
-
-    // Add the new todo to the list
-    addTodo(newTodo);
-
-    // Clear the input fields
-    setTitle('');
-    setDescription('');
+    setSaving(true);
+    try {
+      await api.post('/todos', { title, description });
+      navigate('/todo');
+    } catch (err) {
+      setError(getApiErrorMessage(err, 'Failed to create task'));
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
     <div className='todo'>
-      <h1 className='todo-heading'>Add new Task</h1>
-      <br /><br />
+      <div className='todo-topbar'>
+        <h1 className='todo-heading'>Add new Task</h1>
+        <Link to='/todo' className='link-button'>← Back</Link>
+      </div>
+      <br />
       <form onSubmit={handleSubmit}>
         <input
           type='text'
@@ -49,13 +55,15 @@ function CreateTask({ addTodo }) {
           onChange={(e) => setDescription(e.target.value)}
         />
         <br />
+        {error && <div className='form-error'>{error}</div>}
         <br />
-        <button className='add-task-button' type='submit'>
-          📝 Create Tasks
+        <button className='add-task-button' type='submit' disabled={saving}>
+          {saving ? 'Saving…' : '📝 Create Task'}
         </button>
       </form>
     </div>
   );
 }
 
-export default CreateTask;
+export default CreateTodo;
+

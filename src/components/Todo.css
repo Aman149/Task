@@ -97,3 +97,84 @@
     right: 20px;
     cursor: pointer;
 }
+
+.todo-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 2vh;
+}
+
+.todo-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.todo-username {
+    color: #17171A;
+    font-weight: 700;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: #17E0BC;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.todo-completed-link {
+    text-decoration: none;
+}
+
+.todo-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-link {
+    color: #17E0BC;
+    font-size: 13px;
+    text-decoration: underline;
+    padding-right: 6px;
+}
+
+.todo-item-done label {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.empty-state {
+    text-align: center;
+    color: #6b6b70;
+    padding: 20px 0;
+}
+
+.completed-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+    font-size: 14px;
+    color: #17171A;
+}
+
+.form-error {
+    color: #d93025;
+    font-size: 13px;
+    margin: 8px 0;
+    text-align: center;
+}
+
+.add-task-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
