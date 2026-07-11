@@ -2,11 +2,21 @@
 
 A simple todo app with authentication. Sign up, log in, and manage your personal task list.
 
+## Screenshots
+
+| Login | Tasks |
+| :---: | :---: |
+| ![Login screen](docs/screenshots/login.png) | ![Task list](docs/screenshots/tasks.png) |
+
+| Create task | Completed |
+| :---: | :---: |
+| ![Create task form](docs/screenshots/create.png) | ![Completed tasks](docs/screenshots/completed.png) |
+
 ## Tech stack
 
 - **Frontend:** React 18, Vite, React Router, Axios
 - **Backend:** Node.js, Express, Mongoose (MongoDB)
-- **Auth:** JWT (stored in `localStorage`), passwords hashed with bcrypt
+- **Auth:** JWT (signed with [`jose`](https://www.npmjs.com/package/jose), stored in `localStorage`), passwords hashed with bcrypt
 
 ## Features
 
